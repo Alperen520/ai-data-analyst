@@ -2,12 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ai-data-analyst</title>
+    <title>AI Data Analyst</title>
   </head>
   <body>
-    <div id="app"></div>
+    <header class="topbar">
+      <h1>AI Data Analyst</h1>
+      <label class="lang">
+        <span class="visually-hidden">Answer language</span>
+        <select id="language">
+          <option value="en">English</option>
+          <option value="tr">Türkçe</option>
+        </select>
+      </label>
+    </header>
+
+    <main>
+      <section id="drop" class="drop" aria-label="Load a data file">
+        <p class="drop-title">Drop a CSV or JSON file here</p>
+        <p class="drop-hint">or</p>
+        <label class="button">
+          Choose a file
+          <input type="file" id="file" accept=".csv,.tsv,.txt,.json" hidden />
+        </label>
+        <p class="drop-note">The file is read in your browser. Only summary statistics and a
+          few sample rows are ever sent to the model.</p>
+      </section>
+
+      <section id="dataset" class="panel" hidden>
+        <div class="dataset-head">
+          <h2 id="dataset-name"></h2>
+          <button type="button" id="reset" class="link">Load a different file</button>
+        </div>
+        <p id="dataset-summary" class="muted"></p>
+        <div class="table-wrap">
+          <table id="preview"></table>
+        </div>
+        <details id="profile-details">
+          <summary>Column profile</summary>
+          <div class="table-wrap">
+            <table id="profile"></table>
+          </div>
+        </details>
+      </section>
+
+      <section id="ask" class="panel" hidden>
+        <form id="ask-form">
+          <label for="question" class="visually-hidden">Your question</label>
+          <textarea id="question" rows="2"
+            placeholder="Ask a question about this data…"></textarea>
+          <div class="ask-actions">
+            <div id="suggestions" class="suggestions"></div>
+            <button type="submit" id="submit" class="button">Ask</button>
+          </div>
+        </form>
+        <div id="answer" class="answer" hidden></div>
+        <p id="status" class="status" hidden></p>
+      </section>
+    </main>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
